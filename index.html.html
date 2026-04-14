@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Victim Voice</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f7fb;
+}
+
+header {
+    background: #2c3e50;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+.container {
+    padding: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    background: #3498db;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: #2980b9;
+}
+
+.hidden {
+    display: none;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 8px;
+}
+
+.sos {
+    background: red;
+    font-size: 18px;
+}
+
+.success {
+    color: green;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Victim Voice</h1>
+<p>Your voice matters. Report safely & anonymously.</p>
+</header>
+
+<div class="container">
+
+<!-- Scene 1 -->
+<div id="home">
+    <h2>Welcome</h2>
+    <button onclick="show('report')">Report Anonymously</button>
+</div>
+
+<!-- Scene 2 -->
+<div id="safety" class="hidden">
+    <h2>Privacy Assurance</h2>
+    <p>Your identity is completely safe and confidential.</p>
+    <button onclick="show('category')">Continue</button>
+</div>
+
+<!-- Scene 3 -->
+<div id="category" class="hidden">
+    <h2>Select Complaint Category</h2>
+    <select id="categorySelect">
+        <option>Harassment</option>
+        <option>Theft</option>
+        <option>Abuse</option>
+        <option>Cybercrime</option>
+    </select>
+    <button onclick="show('form')">Next</button>
+</div>
+
+<!-- Scene 4 -->
+<div id="form" class="hidden">
+    <h2>Complaint Form</h2>
+    
+    <div class="form-group">
+        <textarea placeholder="Describe incident"></textarea>
+    </div>
+
+    <div class="form-group">
+        <input type="datetime-local">
+    </div>
+
+    <div class="form-group">
+        <input type="text" placeholder="Location">
+    </div>
+
+    <button onclick="show('evidence')">Next</button>
+</div>
+
+<!-- Scene 5 -->
+<div id="evidence" class="hidden">
+    <h2>Upload Evidence</h2>
+    <input type="file">
+    <br><br>
+    <button onclick="show('review')">Next</button>
+</div>
+
+<!-- Scene 6 -->
+<div id="review" class="hidden">
+    <h2>Review & Submit</h2>
+    <p>Please review your complaint.</p>
+    <button onclick="submitForm()">Submit</button>
+</div>
+
+<!-- Scene 7 -->
+<div id="confirmation" class="hidden">
+    <h2 class="success">Complaint Submitted!</h2>
+    <p>Your Complaint ID: <b id="cid"></b></p>
+</div>
+
+<!-- Scene 11 SOS -->
+<div>
+    <button class="sos" onclick="sos()">🚨 SOS Emergency</button>
+</div>
+
+</div>
+
+<script>
+function show(id) {
+    let sections = document.querySelectorAll(".container > div");
+    sections.forEach(sec => sec.classList.add("hidden"));
+    document.getElementById(id).classList.remove("hidden");
+}
+
+document.querySelector("button").onclick = () => show('safety');
+
+function submitForm() {
+    let id = "VV" + Math.floor(Math.random() * 100000);
+    document.getElementById("cid").innerText = id;
+    show('confirmation');
+}
+
+function sos() {
+    alert("Emergency alert sent with your location!");
+}
+</script>
+
+</body>
+</html>
